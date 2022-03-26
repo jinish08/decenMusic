@@ -101,7 +101,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="3xl" fontFamily="monospace" fontWeight="bold" color="#D57FA7">
+        <Text fontSize="3xl" fontFamily="monospace" fontWeight="900" color="#D57FA7">
           DecenMusic
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
@@ -130,12 +130,12 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: '#7863AF',
           color: 'white',
         }}
         fontSize="2xl"
-        fontWeight="bold"
-        color="#D57FA7"
+        fontWeight="semi-bold"
+        color="white"
         {...rest}>
         {icon && (
           <Icon
@@ -163,8 +163,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
+      // bg={useColorModeValue('white', 'gray.900')}
+      bg="transparent"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}>

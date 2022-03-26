@@ -17,6 +17,17 @@ import SidebarWithHeader from "../components/SidebarWithHeader.tsx";
 const Explore = () => {
   return (
     <>
+      <Image
+        zIndex="-1"
+        position="absolute"
+        src="/assets/explorebg.svg"
+        height="100vh"
+        width="100vw"
+        objectFit="cover"
+        alt="Dan Abramov"
+        left="0"
+        top="0"
+      />
       <Box position="absolute" width="full" zIndex="1">
         <SidebarWithHeader />
       </Box>
