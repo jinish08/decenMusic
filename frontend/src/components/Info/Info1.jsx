@@ -6,11 +6,14 @@ import { MdVerified } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
 import classes from "./Info1.module.css";
+import { IoMdAdd } from "react-icons/io";
+import { RiSubtractLine } from "react-icons/ri";
 function Info1() {
   const [albumName, setAlbumName] = useState("The Purpose Light");
   const [songName, setSongName] = useState("No Going back");
   const [ownerAddr, setOwnerAddr] = useState("0X128912");
   const [views, setViews] = useState(123);
+  const [orderAmt, setOrderAmt] = useState(0);
   const [price, setPrice] = useState(10);
 
   const usdPrice = price * 3111.6;
@@ -19,10 +22,35 @@ function Info1() {
       <div className={classes.imgData}>
         <div className={classes.imgHeader}>
           <FaEthereum style={{ display: "inline", fontSize: "17px" }} />
-          <p className={classes.likes}>
-            {views}
-            {/* <FavoriteIcon /> {views} Streams{" "} */}
-          </p>
+          <IoMdAdd
+            style={{
+              display: "inline",
+              fontSize: "15px",
+              marginRight: "5px",
+              color: "green",
+            }}
+            onClick={() => {
+              setOrderAmt((prev) => {
+                return prev + 1;
+              });
+            }}
+          />
+          <RiSubtractLine
+            style={{
+              display: "inline",
+              fontSize: "15px",
+              marginRight: "5px",
+              color: "red",
+            }}
+            onClick={() => {
+              if (orderAmt > 0) {
+                setOrderAmt((prev) => {
+                  return prev - 1;
+                });
+              }
+            }}
+          />
+          <p className={classes.likes}>{orderAmt}</p>
         </div>
         <img src="/assets/testImage.jpeg" alt="" />
       </div>
