@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 import {
   IconButton,
   Avatar,
@@ -21,7 +21,11 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-} from '@chakra-ui/react';
+  InputGroup,
+  Input,
+  InputLeftElement,
+} from "@chakra-ui/react";
+import {FiSearch} from "react-icons/fi";
 import {
   FiHome,
   FiTrendingUp,
@@ -31,24 +35,25 @@ import {
   FiMenu,
   FiBell,
   FiChevronDown,
-} from 'react-icons/fi';
-import {BsSearch} from 'react-icons/bs';
-import {SiEthereum} from 'react-icons/si';
-import {BsMusicNoteList} from 'react-icons/bs';
-import {ImStatsDots} from 'react-icons/im';
-import { IconType } from 'react-icons';
-import { ReactText } from 'react';
+} from "react-icons/fi";
+import { BsSearch } from "react-icons/bs";
+import { SiEthereum } from "react-icons/si";
+import { BsMusicNoteList } from "react-icons/bs";
+import { ImStatsDots } from "react-icons/im";
+import { IconType } from "react-icons";
+import { ReactText } from "react";
+import { NavLink } from "react-router-dom";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Explore', icon: BsSearch },
-  { name: 'Buy', icon: SiEthereum },
-  { name: 'Create', icon: BsMusicNoteList },
-  { name: 'Stats', icon: ImStatsDots },
-  { name: 'Settings', icon: FiSettings },
+  { name: "Explore", icon: BsSearch, to: "/explore" },
+  { name: "My NFTS", icon: SiEthereum, to: "/mynft" },
+  { name: "Create", icon: BsMusicNoteList, to: "/form" },
+  { name: "Stats", icon: ImStatsDots, to: "/dashboard" },
+  { name: "Settings", icon: FiSettings, to: "/dashboard" },
 ];
 
 export default function SidebarWithHeader({
@@ -61,7 +66,7 @@ export default function SidebarWithHeader({
     <Box minH="100vh" bg="transparent">
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
+        display={{ base: "none", md: "block" }}
       />
       <Drawer
         autoFocus={false}
@@ -70,7 +75,8 @@ export default function SidebarWithHeader({
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full">
+        size="full"
+      >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -95,20 +101,27 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       // bg={useColorModeValue('white', 'gray.900')}
       backgroundColor="#241432"
       borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
+      borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between" >
-        <Text fontSize="3xl" fontFamily="monospace" fontWeight="900" color="#D57FA7">
+      style={{ zIndex: "100" }}
+      {...rest}
+    >
+      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+        <Text
+          fontSize="3xl"
+          fontFamily="monospace"
+          fontWeight="900"
+          color="#D57FA7"
+        >
           DecenMusic
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon}>
-          {link.name}
+          <NavLink to={link.to}>{link.name}</NavLink>
         </NavItem>
       ))}
     </Box>
@@ -121,7 +134,11 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link
+      href="#"
+      style={{ textDecoration: "none" }}
+      _focus={{ boxShadow: "none" }}
+    >
       <Flex
         align="center"
         p="4"
@@ -130,19 +147,20 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: '#7863AF',
-          color: 'white',
+          bg: "#7863AF",
+          color: "white",
         }}
         fontSize="2xl"
         fontWeight="semi-bold"
         color="white"
-        {...rest}>
+        {...rest}
+      >
         {icon && (
           <Icon
             mr="4"
             fontSize="24"
             _groupHover={{
-              color: 'white',
+              color: "white",
             }}
             as={icon}
           />
@@ -165,11 +183,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       alignItems="center"
       // bg={useColorModeValue('white', 'gray.900')}
       bg="transparent"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent={{ base: 'space-between', md: 'flex-end' }}
-      {...rest}>
+      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+      justifyContent={{ base: "space-between", md: "flex-end" }}
+      {...rest}
+    >
       <IconButton
-        display={{ base: 'flex', md: 'none' }}
+        display={{ base: "flex", md: "none" }}
         onClick={onOpen}
         variant="outline"
         aria-label="open menu"
@@ -177,46 +196,60 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
 
       <Text
-        display={{ base: 'flex', md: 'none' }}
+        display={{ base: "flex", md: "none" }}
         fontSize="2xl"
         fontFamily="monospace"
-        fontWeight="bold">
+        fontWeight="bold"
+      >
         Logo
       </Text>
 
-      <HStack spacing={{ base: '0', md: '6' }}>
-        <Flex alignItems={'center'}>
+      <HStack spacing={{ base: "0", md: "6" }}>
+        
+      <InputGroup>
+    <InputLeftElement
+      pointerEvents='none'
+      children={<FiSearch color='gray.300' />}
+    />
+    <Input type='tel' placeholder='Phone number' />
+  </InputGroup>
+        <Flex alignItems={"center"}>
           <Menu>
             <MenuButton
               py={2}
               transition="all 0.3s"
-              _focus={{ boxShadow: 'none' }}>
+              _focus={{ boxShadow: "none" }}
+            >
               <HStack>
                 <Avatar
-                  size={'sm'}
+                  size={"sm"}
                   src={
-                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
                   }
                 />
                 <VStack
-                  display={{ base: 'none', md: 'flex' }}
+                  display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
                   spacing="1px"
-                  ml="2">
-                  <Text fontSize="sm" fontWeight={600}>Justina Clark</Text>
+                  ml="2"
+                >
+                  <Text fontSize="sm" fontWeight={600}>
+                    Justina Clark
+                  </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
                 </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown/>
+                <Box display={{ base: "none", md: "flex" }}>
+                  <FiChevronDown />
                 </Box>
               </HStack>
             </MenuButton>
             <MenuList
-              bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem >Profile</MenuItem>
+              bg={useColorModeValue("white", "gray.900")}
+              borderColor={useColorModeValue("gray.200", "gray.700")}
+            >
+              <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />

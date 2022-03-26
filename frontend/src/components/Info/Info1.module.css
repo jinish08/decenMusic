@@ -16,7 +16,7 @@
 }
 .imgHeader {
   display: flex;
-  width: 70%;
+  width: 30%;
   height: 10%;
   border: 1px #e5e8eb solid;
   justify-content: space-between;

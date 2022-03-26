@@ -20,7 +20,57 @@ function Info1() {
   return (
     <div className={classes.mainContainer}>
       <div className={classes.imgData}>
-        <div className={classes.imgHeader}>
+        
+        <img src="/assets/testImage.jpeg" alt="" />
+      </div>
+      <div className={classes.nftData}>
+        <div className={classes.songHeader}>
+          <div className={classes.albumName}>
+            <p>{albumName}</p>
+          </div>
+          <div className={classes.songName}>
+            <p>{songName}</p>
+          </div>
+          <div className={classes.ownerDets}>
+            <p className={classes.ownedBy} style={{color: "#D57FA7"}}>
+              Owned By <span style={{ color: "#7863AF" }} className={classes.ownerAddr}>{ownerAddr} </span>{" "}
+              <MdVerified
+                style={{
+                  display: "inline",
+                  fontSize: "16px",
+                  color: "#7863AF",
+                  marginTop: "7px",
+                }}
+              />
+            </p>
+            <p className={classes.likes} style={{color: "#D57FA7"}}>
+              <AiFillHeart style={{ fontSize: "15px", display: "inline", color: "#7863AF"}} />{" "}
+              {views} Views {/* <FavoriteIcon /> {views} Streams{" "} */}
+            </p>
+          </div>
+        </div>
+        <div className={classes.priceContainer}>
+          <p style={{ color: "#707a83" }}>Current Price</p>
+          <p>
+            <span className={classes.price}>
+              <i class="fab fa-ethereum"></i>{" "}
+              <span
+                style={{
+                  fontSize: "35px",
+                  fontWeight: "700",
+                  display: "inline",
+                }}
+              >
+                {" "}
+                <FaEthereum style={{ display: "inline", fontSize: "26px" }} />
+                {price}
+              </span>{" "}
+            </span>{" "}
+            <span className={classes.priceUsd}>(${usdPrice})</span>
+          </p>
+          <div className={classes.priceBtns}>
+          <div className={classes.imgHeader} 
+              style={{marginTop:"20px", marginBottom:"20px"}}>
           <FaEthereum style={{ display: "inline", fontSize: "17px" }} />
           <IoMdAdd
             style={{
@@ -52,54 +102,6 @@ function Info1() {
           />
           <p className={classes.likes}>{orderAmt}</p>
         </div>
-        <img src="/assets/testImage.jpeg" alt="" />
-      </div>
-      <div className={classes.nftData}>
-        <div className={classes.songHeader}>
-          <div className={classes.albumName}>
-            <p>{albumName}</p>
-          </div>
-          <div className={classes.songName}>
-            <p>{songName}</p>
-          </div>
-          <div className={classes.ownerDets}>
-            <p className={classes.ownedBy}>
-              Owned By <span className={classes.ownerAddr}>{ownerAddr} </span>{" "}
-              <MdVerified
-                style={{
-                  display: "inline",
-                  fontSize: "16px",
-                  color: "#1b9ce8",
-                  marginTop: "6px",
-                }}
-              />
-            </p>
-            <p className={classes.likes}>
-              <AiFillHeart style={{ fontSize: "15px", display: "inline" }} />{" "}
-              {views} Views {/* <FavoriteIcon /> {views} Streams{" "} */}
-            </p>
-          </div>
-        </div>
-        <div className={classes.priceContainer}>
-          <p style={{ color: "#707a83" }}>Current Price</p>
-          <p>
-            <span className={classes.price}>
-              <i class="fab fa-ethereum"></i>{" "}
-              <span
-                style={{
-                  fontSize: "35px",
-                  fontWeight: "700",
-                  display: "inline",
-                }}
-              >
-                {" "}
-                <FaEthereum style={{ display: "inline", fontSize: "26px" }} />
-                {price}
-              </span>{" "}
-            </span>{" "}
-            <span className={classes.priceUsd}>(${usdPrice})</span>
-          </p>
-          <div className={classes.priceBtns}>
             <Button
               leftIcon={<FaWallet />}
               colorScheme="twitter"
