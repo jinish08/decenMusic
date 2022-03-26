@@ -15,7 +15,7 @@ import { AudioPlayer } from './AudioPlayer';
 const IMAGE =
 	'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
 
-const Card = () => {
+const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
 	return (
 		<>
 			<Box py={12}>
@@ -58,7 +58,7 @@ const Card = () => {
 							height={220}
 							width={282}
 							objectFit={'cover'}
-							src={IMAGE}
+							src={imageSrc}
 						/>
 					</Box>
 					<Stack
@@ -73,7 +73,7 @@ const Card = () => {
 							fontWeight={800}
 							color={'#241432'}
 						>
-							Havana
+							{name}
 						</Heading>
 						<Text
 							fontSize={'sm'}
@@ -81,18 +81,18 @@ const Card = () => {
 							color={'#D57FA7'}
 							fontWeight={550}
 						>
-							Camila Cabello
+							{sellerAddr}
 						</Text>
 
 						<AiOutlineHeart fontSize={25} />
 						<Stack direction={'row'} align={'left'}>
 							<Text fontWeight={800} fontSize={'xl'}>
-								$57
+								{price}
 							</Text>
 							{/* <Text textDecoration={"line-through"} color={"gray.600"}>
                   $199
                 </Text> */}
-							<AudioPlayer />
+							{songSrc && <AudioPlayer songSrc={songSrc} />}
 						</Stack>
 					</Stack>
 				</Box>
