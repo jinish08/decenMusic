@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart, AiOutlineShoppingCart} from 'react-icons/ai';
 
 import {
 	Box,
@@ -10,6 +10,8 @@ import {
 	Stack,
 	Image,
 	Icon,
+    HStack,
+    Button,
 } from '@chakra-ui/react';
 import { AudioPlayer } from './AudioPlayer';
 const IMAGE =
@@ -67,6 +69,7 @@ const Card = () => {
 						alignItems="left"
 						justifyContent="flex-end"
 					>
+                    <HStack>
 						<Heading
 							fontSize={'2xl'}
 							fontFamily={'body'}
@@ -75,6 +78,9 @@ const Card = () => {
 						>
 							Havana
 						</Heading>
+                        
+						<AiOutlineHeart fontSize={25}/>
+                        </HStack>
 						<Text
 							fontSize={'sm'}
 							textTransform={'uppercase'}
@@ -84,16 +90,20 @@ const Card = () => {
 							Camila Cabello
 						</Text>
 
-						<AiOutlineHeart fontSize={25} />
+
 						<Stack direction={'row'} align={'left'}>
-							<Text fontWeight={800} fontSize={'xl'}>
+                        <HStack>
+							<Text fontWeight={800} fontSize={'xl'} marginRight={120}>
 								$57
 							</Text>
-							{/* <Text textDecoration={"line-through"} color={"gray.600"}>
-                  $199
-                </Text> */}
-							<AudioPlayer />
+                            <Button>
+                                Buy Now<AiOutlineShoppingCart />
+                            </Button>
+                        </HStack>
 						</Stack>
+                        <Box w={10}>
+							<AudioPlayer />
+                        </Box>
 					</Stack>
 				</Box>
 			</Box>
