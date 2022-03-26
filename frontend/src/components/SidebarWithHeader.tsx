@@ -21,7 +21,11 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  InputGroup,
+  Input,
+  InputLeftElement,
 } from "@chakra-ui/react";
+import {FiSearch} from "react-icons/fi";
 import {
   FiHome,
   FiTrendingUp,
@@ -201,6 +205,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
+        
+      <InputGroup>
+    <InputLeftElement
+      pointerEvents='none'
+      children={<FiSearch color='gray.300' />}
+    />
+    <Input type='tel' placeholder='Phone number' />
+  </InputGroup>
         <Flex alignItems={"center"}>
           <Menu>
             <MenuButton
