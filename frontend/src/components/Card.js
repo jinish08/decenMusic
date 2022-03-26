@@ -24,7 +24,7 @@ const IMAGE =
 const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
 	return (
 		<>
-			<Box py={12} >
+			<Box py={12}>
 				<Box
 					role={'group'}
 					p={6}
@@ -34,7 +34,7 @@ const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
 					boxShadow={'2xl'}
 					rounded={'lg'}
 					pos={'relative'}
-					zIndex={0}
+					zIndex={1}
 				>
 					<Box
 						rounded={'lg'}

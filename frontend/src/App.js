@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Home from "./pages/Explore";
 import Form from "./pages/Form";
+import Dashboard from "./pages/Dashboard";
 import Info from "./pages/Info";
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
       <Route path="/">
         <Route path="explore" element={<Home />} />
         <Route path="form" element={<Form />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/buy/:id" element={<Info />} />
       </Route>
     </Routes>
