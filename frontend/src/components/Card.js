@@ -20,7 +20,7 @@ const IMAGE =
 const Card = () => {
 	return (
 		<>
-			<Box py={12}>
+			<Box py={12} >
 				<Box
 					role={'group'}
 					p={6}
@@ -30,7 +30,7 @@ const Card = () => {
 					boxShadow={'2xl'}
 					rounded={'lg'}
 					pos={'relative'}
-					zIndex={1}
+					zIndex={0}
 				>
 					<Box
 						rounded={'lg'}
