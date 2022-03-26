@@ -9,6 +9,7 @@ contract NFT is ERC1155 {
     Counters.Counter private _tokenIds;
     address contractAddress;
     mapping(uint => string) public tokenURIs;
+    event TokenCreated(uint tokenId);
 
     constructor(address markePlaceAddress){
         contractAddress = markePlaceAddress;
@@ -28,7 +29,7 @@ contract NFT is ERC1155 {
         tokenURIs[tokenId] = tokenURI;
         setTokenURI(tokenId,tokenURI);
         setApprovalForAll(contractAddress, true);
-        
+        emit TokenCreated(tokenId);
         return tokenId;
 
     }
