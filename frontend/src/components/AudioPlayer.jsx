@@ -5,7 +5,7 @@ import { BsArrowRightShort } from 'react-icons/bs';
 import { FaPlay } from 'react-icons/fa';
 import { FaPause } from 'react-icons/fa';
 
-const AudioPlayer = () => {
+const AudioPlayer = ({ songSrc }) => {
 	// state
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [duration, setDuration] = useState(0);
@@ -74,12 +74,8 @@ const AudioPlayer = () => {
 
 	return (
 		<div className={styles.audioPlayer}>
-			<audio
-				ref={audioPlayer}
-				src="https://cdn.simplecast.com/audio/cae8b0eb-d9a9-480d-a652-0defcbe047f4/episodes/af52a99b-88c0-4638-b120-d46e142d06d3/audio/500344fb-2e2b-48af-be86-af6ac341a6da/default_tc.mp3"
-				preload="metadata"
-			></audio>
-			
+			<audio ref={audioPlayer} src={songSrc} preload="metadata"></audio>
+
 			<button
 				onClick={togglePlayPause}
 				className={styles.playPause}
@@ -87,7 +83,6 @@ const AudioPlayer = () => {
 			>
 				{isPlaying ? <FaPause /> : <FaPlay className={styles.play} />}
 			</button>
-			
 
 			{/* current time */}
 			<div className={styles.currentTime}>{calculateTime(currentTime)}</div>

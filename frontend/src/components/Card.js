@@ -1,5 +1,9 @@
 import React from 'react';
-import { AiOutlineHeart, AiFillHeart, AiOutlineShoppingCart} from 'react-icons/ai';
+import {
+	AiOutlineHeart,
+	AiFillHeart,
+	AiOutlineShoppingCart,
+} from 'react-icons/ai';
 
 import {
 	Box,
@@ -10,14 +14,14 @@ import {
 	Stack,
 	Image,
 	Icon,
-    HStack,
-    Button,
+	HStack,
+	Button,
 } from '@chakra-ui/react';
 import { AudioPlayer } from './AudioPlayer';
 const IMAGE =
 	'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
 
-const Card = () => {
+const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
 	return (
 		<>
 			<Box py={12} >
@@ -60,7 +64,7 @@ const Card = () => {
 							height={220}
 							width={282}
 							objectFit={'cover'}
-							src={IMAGE}
+							src={imageSrc}
 						/>
 					</Box>
 					<Stack
@@ -69,41 +73,39 @@ const Card = () => {
 						alignItems="left"
 						justifyContent="flex-end"
 					>
-                    <HStack>
-						<Heading
-							fontSize={'2xl'}
-							fontFamily={'body'}
-							fontWeight={800}
-							color={'#241432'}
-						>
-							Havana
-						</Heading>
-                        
-						<AiOutlineHeart fontSize={25}/>
-                        </HStack>
+						<HStack>
+							<Heading
+								fontSize={'2xl'}
+								fontFamily={'body'}
+								fontWeight={800}
+								color={'#241432'}
+							>
+								{name}
+							</Heading>
+
+							<AiOutlineHeart fontSize={25} />
+						</HStack>
 						<Text
 							fontSize={'sm'}
 							textTransform={'uppercase'}
 							color={'#D57FA7'}
 							fontWeight={550}
 						>
-							Camila Cabello
+							{sellerAddr}
 						</Text>
 
-
 						<Stack direction={'row'} align={'left'}>
-                        <HStack>
-							<Text fontWeight={800} fontSize={'xl'} marginRight={120}>
-								$57
-							</Text>
-                            <Button>
-                                Buy Now<AiOutlineShoppingCart />
-                            </Button>
-                        </HStack>
+							<HStack>
+								<Text fontWeight={800} fontSize={'xl'} marginRight={120}>
+									{price}
+								</Text>
+								<Button>
+									Buy Now
+									<AiOutlineShoppingCart />
+								</Button>
+							</HStack>
 						</Stack>
-                        <Box w={10}>
-							<AudioPlayer />
-                        </Box>
+						<Box w={10}>{songSrc && <AudioPlayer songSrc={songSrc} />}</Box>
 					</Stack>
 				</Box>
 			</Box>
