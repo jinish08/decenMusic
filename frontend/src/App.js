@@ -1,11 +1,11 @@
 import React from "react";
-import { Text } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Home from "./pages/Explore";
 import Form from "./pages/Form";
 import Dashboard from "./pages/Dashboard";
 import Info from "./pages/Info";
+import MyNft from "./pages/MyNft";
 
 const App = () => {
   if (!window.ethereum) {
@@ -28,6 +28,7 @@ const App = () => {
         <Route path="form" element={<Form />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/buy/:id" element={<Info />} />
+		<Route path="/mynft" element={<MyNft />} />
       </Route>
     </Routes>
   );

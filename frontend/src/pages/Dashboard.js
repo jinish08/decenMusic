@@ -64,12 +64,12 @@ const data2 = [
   
   return (
     <>
-      <Box position="absolute" width="full" zIndex="-1">
+      <Box position="absolute" width="full" zIndex="0">
         <SidebarWithHeader />
       </Box>
-      <Box postion="absolute" pl="16%" pt="20" zIndex="10">
-        <div zIndex="10">
-          <PieChart width={400} height={400} zIndex="10">
+      <Box postion="absolute" ml="50%" pt="20" zIndex="0">
+        <Box zIndex="10">
+          <PieChart width={400} height={400} zIndex="0">
             <Pie
               dataKey="value"
               isAnimationActive={false}
@@ -78,6 +78,7 @@ const data2 = [
               cy="50%"
               outerRadius={80}
               label={renderLabel}
+              zIndex="0"
             >
               {data1.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={barColors[index % 2]} />
@@ -85,7 +86,7 @@ const data2 = [
             </Pie>
             <Tooltip />
           </PieChart>
-        </div>
+        </Box>
         <div>
       <BarChart
         width={700}
