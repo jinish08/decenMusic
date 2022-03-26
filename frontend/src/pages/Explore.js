@@ -16,7 +16,7 @@ const IMAGE =
 const Explore = () => {
   return (
     <>
-      <Box position="absolute" width="full" zIndex="-1">
+      <Box position="absolute" width="full" zIndex="1">
         <SidebarWithHeader />
       </Box>
       <Box postion="absolute" pl="16%" pt="20">
