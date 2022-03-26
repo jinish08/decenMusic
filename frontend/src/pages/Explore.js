@@ -10,6 +10,7 @@ import {
 	VStack,
 } from '@chakra-ui/react';
 import React from 'react';
+import { AudioPlayer } from '../components/AudioPlayer';
 import Card from '../components/Card';
 import SidebarWithHeader from '../components/SidebarWithHeader.tsx';
 
@@ -42,6 +43,7 @@ const Explore = () => {
 						<Card />
 						<Card />
 					</HStack>
+					<AudioPlayer />
 				</VStack>
 			</Box>
 		</>
