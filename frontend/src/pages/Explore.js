@@ -42,7 +42,7 @@ const Explore = () => {
 			<Box postion="absolute" pl="16%" pt="20">
 				<VStack>
 					<Flex flexWrap={'wrap'} justifyContent={'space-evenly'}>
-						{allNFTs.length == 0 ? (
+						{allNFTs.length === 0 ? (
 							<Text fontSize={'4xl'}>No items</Text>
 						) : (
 							allNFTs?.map((i) => (
