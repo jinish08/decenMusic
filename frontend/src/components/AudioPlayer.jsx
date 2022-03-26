@@ -75,18 +75,13 @@ const AudioPlayer = ({ songSrc }) => {
 	return (
 		<div className={styles.audioPlayer}>
 			<audio ref={audioPlayer} src={songSrc} preload="metadata"></audio>
-			<button className={styles.forwardBackward} onClick={backThirty}>
-				<BsArrowLeftShort /> 30
-			</button>
+
 			<button
 				onClick={togglePlayPause}
 				className={styles.playPause}
 				style={{ zIndex: 1000 }}
 			>
 				{isPlaying ? <FaPause /> : <FaPlay className={styles.play} />}
-			</button>
-			<button className={styles.forwardBackward} onClick={forwardThirty}>
-				30 <BsArrowRightShort />
 			</button>
 
 			{/* current time */}
