@@ -1,5 +1,9 @@
 import React from 'react';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import {
+	AiOutlineHeart,
+	AiFillHeart,
+	AiOutlineShoppingCart,
+} from 'react-icons/ai';
 
 import {
 	Box,
@@ -10,15 +14,17 @@ import {
 	Stack,
 	Image,
 	Icon,
+	HStack,
+	Button,
 } from '@chakra-ui/react';
 import { AudioPlayer } from './AudioPlayer';
 const IMAGE =
 	'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
 
-const Card = () => {
+const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
 	return (
 		<>
-			<Box py={12}>
+			<Box py={12} >
 				<Box
 					role={'group'}
 					p={6}
@@ -28,7 +34,7 @@ const Card = () => {
 					boxShadow={'2xl'}
 					rounded={'lg'}
 					pos={'relative'}
-					zIndex={1}
+					zIndex={0}
 				>
 					<Box
 						rounded={'lg'}
@@ -58,7 +64,7 @@ const Card = () => {
 							height={220}
 							width={282}
 							objectFit={'cover'}
-							src={IMAGE}
+							src={imageSrc}
 						/>
 					</Box>
 					<Stack
@@ -67,33 +73,39 @@ const Card = () => {
 						alignItems="left"
 						justifyContent="flex-end"
 					>
-						<Heading
-							fontSize={'2xl'}
-							fontFamily={'body'}
-							fontWeight={800}
-							color={'#241432'}
-						>
-							Havana
-						</Heading>
+						<HStack>
+							<Heading
+								fontSize={'2xl'}
+								fontFamily={'body'}
+								fontWeight={800}
+								color={'#241432'}
+							>
+								{name}
+							</Heading>
+
+							<AiOutlineHeart fontSize={25} />
+						</HStack>
 						<Text
 							fontSize={'sm'}
 							textTransform={'uppercase'}
 							color={'#D57FA7'}
 							fontWeight={550}
 						>
-							Camila Cabello
+							{sellerAddr}
 						</Text>
 
-						<AiOutlineHeart fontSize={25} />
 						<Stack direction={'row'} align={'left'}>
-							<Text fontWeight={800} fontSize={'xl'}>
-								$57
-							</Text>
-							{/* <Text textDecoration={"line-through"} color={"gray.600"}>
-                  $199
-                </Text> */}
-							<AudioPlayer />
+							<HStack>
+								<Text fontWeight={800} fontSize={'xl'} marginRight={120}>
+									{price}
+								</Text>
+								<Button>
+									Buy Now
+									<AiOutlineShoppingCart />
+								</Button>
+							</HStack>
 						</Stack>
+						<Box w={10}>{songSrc && <AudioPlayer songSrc={songSrc} />}</Box>
 					</Stack>
 				</Box>
 			</Box>

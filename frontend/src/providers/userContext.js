@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { getMarketContractRead, getNftContractRead } from '../utils';
+import axios from 'axios';
 
 export const UserContext = React.createContext();
 
@@ -45,8 +46,31 @@ export const UserProvider = ({ children }) => {
 	};
 
 	const getAllNFTs = async () => {
-		const nftContract = getMarketContractRead();
-		console.log(nftContract);
+		const nftContract = getNftContractRead();
+		const marketContract = getMarketContractRead();
+
+		const data = await marketContract.fetchMarketItems();
+
+		const items = await Promise.all(
+			data.map(async (i) => {
+				const tokenURI = await nftContract.tokenURIs(i.tokenId);
+				const meta = await axios.get(tokenURI);
+				const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+				const item = {
+					price,
+					tokenId: i.tokenId.toNumber(),
+					seller: i.seller,
+					owner: i.owner,
+					song: meta.data.song,
+					name: meta.data.name,
+					image: meta.data.image,
+					lyrics: meta.data.lyrics,
+				};
+				return item;
+			})
+		);
+		console.log(items);
+		setAllNFTs(items);
 	};
 
 	useEffect(() => {
@@ -74,6 +98,8 @@ export const UserProvider = ({ children }) => {
 			value={{
 				connectWallet,
 				currentAccount,
+				allNFTs,
+				getAllNFTs,
 				loading,
 				isCorrectNetwork,
 			}}
