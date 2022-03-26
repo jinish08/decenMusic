@@ -32,6 +32,10 @@ import {
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
+import {BsSearch} from 'react-icons/bs';
+import {SiEthereum} from 'react-icons/si';
+import {BsMusicNoteList} from 'react-icons/bs';
+import {ImStatsDots} from 'react-icons/im';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 
@@ -40,10 +44,10 @@ interface LinkItemProps {
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
+  { name: 'Explore', icon: BsSearch },
+  { name: 'Buy', icon: SiEthereum },
+  { name: 'Create', icon: BsMusicNoteList },
+  { name: 'Stats', icon: ImStatsDots },
   { name: 'Settings', icon: FiSettings },
 ];
 
@@ -88,7 +92,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue('white', 'gray.900')}
+      // bg={useColorModeValue('white', 'gray.900')}
+      backgroundColor="#241432"
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 60 }}
@@ -96,8 +101,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+        <Text fontSize="3xl" fontFamily="monospace" fontWeight="bold" color="#D57FA7">
+          DecenMusic
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -128,11 +133,14 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
           bg: 'cyan.400',
           color: 'white',
         }}
+        fontSize="2xl"
+        fontWeight="bold"
+        color="#D57FA7"
         {...rest}>
         {icon && (
           <Icon
             mr="4"
-            fontSize="16"
+            fontSize="24"
             _groupHover={{
               color: 'white',
             }}
