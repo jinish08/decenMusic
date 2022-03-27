@@ -73,6 +73,36 @@ export const UserProvider = ({ children }) => {
 		setAllNFTs(items);
 	};
 
+	const getMyNFTs = async () => {
+		const marketContract = getMarketContractRead();
+		const nftMarketContract = getNftContractRead();
+
+		const data = await marketContract.fetchMyNFTs();
+
+		const items = await Promise.all(
+			data.map(async (i) => {
+				const tokenURI = await nftMarketContract.tokenURIs(i.tokenId);
+				const meta = await axios.get(tokenURI);
+				const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+				const item = {
+					price,
+					tokenId: i.tokenId.toNumber(),
+					seller: i.seller,
+					owner: i.owner,
+					song: meta.data.song,
+					name: meta.data.name,
+					image: meta.data.image,
+					lyrics: meta.data.lyrics,
+				};
+				return item;
+			})
+		);
+
+		console.log('f;dljfasd;fjklasf;jk', myNfts);
+
+		setMyNfts(items);
+	};
+
 	useEffect(() => {
 		if (ethereum) {
 			const getChain = async () => {
@@ -100,6 +130,8 @@ export const UserProvider = ({ children }) => {
 				currentAccount,
 				allNFTs,
 				getAllNFTs,
+				getMyNFTs,
+				myNfts,
 				loading,
 				isCorrectNetwork,
 			}}
