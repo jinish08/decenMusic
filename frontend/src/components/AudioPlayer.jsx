@@ -5,7 +5,8 @@ import { BsArrowRightShort } from 'react-icons/bs';
 import { FaPlay } from 'react-icons/fa';
 import { FaPause } from 'react-icons/fa';
 
-const AudioPlayer = ({ songSrc }) => {
+const AudioPlayer = ({ songSrc , preview }) => {
+
 	// state
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [duration, setDuration] = useState(0);
@@ -18,8 +19,8 @@ const AudioPlayer = ({ songSrc }) => {
 
 	useEffect(() => {
 		const seconds = Math.floor(audioPlayer.current.duration);
-		setDuration(seconds);
-		progressBar.current.max = seconds;
+		setDuration(preview?20:seconds);
+		progressBar.current.max = preview?20:seconds;
 	}, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState]);
 
 	const calculateTime = (secs) => {
