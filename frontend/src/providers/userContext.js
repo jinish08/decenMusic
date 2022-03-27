@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
 	const [isCorrectNetwork, setIsCorrectNetwork] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [allNFTs, setAllNFTs] = useState([]);
-
+	const [myNfts, setMyNfts] = useState([]);
 	const checkIfWalletIsConnected = async () => {
 		try {
 			if (!ethereum) alert('You dont have ethereum wallet installed');
