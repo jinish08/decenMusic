@@ -13,6 +13,7 @@ export const UserProvider = ({ children }) => {
 	const [loading, setLoading] = useState(false);
 	const [allNFTs, setAllNFTs] = useState([]);
 	const [myNfts, setMyNfts] = useState([]);
+	const [createdNFTs, setCreatedNFTs] = useState([]);
 	const checkIfWalletIsConnected = async () => {
 		try {
 			if (!ethereum) alert('You dont have ethereum wallet installed');
@@ -103,6 +104,38 @@ export const UserProvider = ({ children }) => {
 		setMyNfts(items);
 	};
 
+	const getCreatedNFTs = async () => {
+		const marketContract = getMarketContractRead();
+		const nftMarketContract = getNftContractRead();
+
+		const data = await marketContract.fetchItemsCreated();
+
+		console.log('data', data);
+
+		const items = await Promise.all(
+			data.map(async (i) => {
+				const tokenURI = await nftMarketContract.tokenURIs(i.tokenId);
+				const meta = await axios.get(tokenURI);
+				const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+				const item = {
+					price,
+					tokenId: i.tokenId.toNumber(),
+					seller: i.seller,
+					owner: i.owner,
+					song: meta.data.song,
+					name: meta.data.name,
+					image: meta.data.image,
+					lyrics: meta.data.lyrics,
+				};
+				return item;
+			})
+		);
+
+		console.log('createdNFTS', items);
+
+		setCreatedNFTs(items);
+	};
+
 	useEffect(() => {
 		if (ethereum) {
 			const getChain = async () => {
@@ -134,6 +167,8 @@ export const UserProvider = ({ children }) => {
 				myNfts,
 				loading,
 				isCorrectNetwork,
+				getCreatedNFTs,
+				createdNFTs,
 			}}
 		>
 			{children}

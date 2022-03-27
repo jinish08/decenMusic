@@ -5,19 +5,21 @@ import marketContractABI from '../contracts/NftMarket.json';
 
 export const getNftContractRead = () => {
 	const provider = new ethers.providers.Web3Provider(window.ethereum);
+	const signer = provider.getSigner();
 	const nftContract = new ethers.Contract(
 		contractAddress.nftAddress,
 		nftContractABI.abi,
-		provider
+		signer
 	);
 	return nftContract;
 };
 export const getMarketContractRead = () => {
 	const provider = new ethers.providers.Web3Provider(window.ethereum);
+	const signer = provider.getSigner();
 	const marketContract = new ethers.Contract(
 		contractAddress.marketAddress,
 		marketContractABI.abi,
-		provider
+		signer
 	);
 	return marketContract;
 };
