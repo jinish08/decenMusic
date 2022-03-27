@@ -72,7 +72,7 @@ function Info1() {
 	}, []);
 
 	return (
-		<Box bgColor={'#241432'} overflowY={'hidden'}>
+		<Box bgColor={'#241432'} overflowY={'hidden'} minH={'100vh'}>
 			<Box
 				role={'group'}
 				p={6}
