@@ -2,6 +2,8 @@ import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { getMarketContractRead, getNftContractRead } from '../utils';
 import axios from 'axios';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../utils/firebase-config';
 
 export const UserContext = React.createContext();
 
@@ -40,6 +42,15 @@ export const UserProvider = ({ children }) => {
 			});
 			console.log(accounts);
 			setCurrentAccount(accounts[0]);
+			try{
+				const userCollectionRef = collection(db, "user");
+				await addDoc(userCollectionRef, {
+				  hash:accounts[0],
+				  fav:[],
+				});
+			  } catch(err){
+				console.log(err);
+			  }
 		} catch (error) {
 			console.log(error);
 			throw new Error(error.message);
