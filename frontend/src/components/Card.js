@@ -19,10 +19,13 @@ import {
 } from '@chakra-ui/react';
 import { AudioPlayer } from './AudioPlayer';
 import { FaEthereum } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 const IMAGE =
 	'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
 
-const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
+const Card = ({ imageSrc, songSrc, price, name, sellerAddr, tokenID }) => {
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<Box py={12}>
@@ -100,10 +103,14 @@ const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
 								<Text fontWeight={800} fontSize={'xl'} marginRight={120}>
 									<HStack>
 										<Text>{price}</Text>
-									<FaEthereum />
+										<FaEthereum />
 									</HStack>
 								</Text>
-								<Button>
+								<Button
+									onClick={(e) =>
+										navigate(`/buy/${tokenID}`, { state: { price: price } })
+									}
+								>
 									Buy Now
 									<AiOutlineShoppingCart />
 								</Button>

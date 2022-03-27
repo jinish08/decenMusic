@@ -15,13 +15,14 @@ import {
 	NumberDecrementStepper,
 	Button,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { getMarketContractWrite, getNftContractWrite } from '../utils';
 import { ethers } from 'ethers';
 import contractAddress from '../contracts/contract-address.json';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../providers/userContext';
 
 const mystyle = {
 	overflow: 'hidden',
@@ -39,6 +40,7 @@ const Form = () => {
 	const [imageUrl, setImageUrl] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [price, setPrice] = useState(0);
+	const { currenAccount } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -94,6 +96,7 @@ const Form = () => {
 			tags,
 			image: imageUrl,
 			song: songUrl,
+			author: currenAccount,
 		});
 
 		try {
