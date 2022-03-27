@@ -131,7 +131,7 @@ const Form = () => {
         await addDoc(songCollectionRef, {
           hash:tokenID,
           name:name,
-          views:[],
+          views:0,
           likes:[],
         });
       } catch(err){
