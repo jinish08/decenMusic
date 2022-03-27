@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FaEthereum } from 'react-icons/fa';
 import { FaWallet } from 'react-icons/fa';
@@ -71,8 +71,6 @@ function Info1() {
 		getNftData();
 	}, []);
 
-	const usdPrice = price * 3111.6;
-
 	return (
 		<Box bgColor={'#241432'} overflowY={'hidden'}>
 			<Box
@@ -90,18 +88,12 @@ function Info1() {
 			>
 				<div className={classes.mainContainer}>
 					<div className={classes.imgData}>
-						<img src="/assets/testImage.jpeg" alt="" />
+						<img src={metaData.image} alt="" />
 					</div>
 					<div className={classes.nftData}>
 						<div className={classes.songHeader}>
-							<div
-								className={classes.albumName}
-								style={{ fontWeight: '700', color: '#D57FA7' }}
-							>
-								<p>{albumName}</p>
-							</div>
 							<div className={classes.songName} style={{ fontWeight: '800' }}>
-								<p>{songName}</p>
+								<p>{metaData.name}</p>
 							</div>
 							<div className={classes.ownerDets}>
 								<p
@@ -117,7 +109,7 @@ function Info1() {
 										style={{ color: '#7863AF' }}
 										className={classes.ownerAddr}
 									>
-										{ownerAddr}{' '}
+										{metaData.author}{' '}
 									</span>{' '}
 									<MdVerified
 										style={{
@@ -168,7 +160,7 @@ function Info1() {
 										{price}
 									</span>{' '}
 								</span>{' '}
-								<span className={classes.priceUsd}>(${usdPrice})</span>
+								{/* <span className={classes.priceUsd}>(${usdPrice})</span> */}
 							</p>
 							<div className={classes.priceBtns}>
 								<div
@@ -223,6 +215,7 @@ function Info1() {
 										color: 'white',
 										backgroundColor: '#7863AF',
 									}}
+									onClick={buyNFT}
 								>
 									Buy Now
 								</Button>

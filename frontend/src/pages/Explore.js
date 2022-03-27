@@ -116,6 +116,7 @@ const Explore = () => {
 										imageSrc={i.image}
 										seller={i.seller}
 										price={i.price}
+										tokenID={i.tokenId}
 									/>
 								))
 						)}
