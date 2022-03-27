@@ -102,6 +102,7 @@ const Explore = () => {
 				}).map((i) => (
                 <Card
                   songSrc={i.song}
+				  preview={true}
                   imageSrc={i.image}
                   seller={i.seller}
                   price={i.price}
