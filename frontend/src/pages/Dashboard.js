@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import SidebarWithHeader from "../components/SidebarWithHeader.tsx";
 import {
   PieChart,
@@ -67,7 +67,8 @@ const data2 = [
       <Box position="absolute" width="full" zIndex="0">
         <SidebarWithHeader />
       </Box>
-      <Box postion="absolute" ml="50%" pt="20" zIndex="0">
+      <Box postion="absolute" ml="16%" pt="20" zIndex="0">
+        <HStack>
         <Box zIndex="10">
           <PieChart width={400} height={400} zIndex="0">
             <Pie
@@ -87,7 +88,7 @@ const data2 = [
             <Tooltip />
           </PieChart>
         </Box>
-        <div>
+        <Box>
       <BarChart
         width={700}
         height={300}
@@ -133,7 +134,8 @@ const data2 = [
           ))}
         </Bar>
       </BarChart>
-    </div>
+    </Box>
+    </HStack>
       </Box>
     </>
   );
