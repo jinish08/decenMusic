@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Box, HStack, Text } from '@chakra-ui/react';
+import { Box, Flex, HStack, Text } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/SidebarWithHeader.tsx';
 import {
 	PieChart,
@@ -149,21 +149,23 @@ const Dashboard = () => {
 						</BarChart>
 					</Box>
 				</HStack>
-				{createdNFTs?.length === 0 ? (
-					<Text fontSize={'4xl'}>No items</Text>
-				) : (
-					createdNFTs?.map((i) => (
-						<Card
-							songSrc={i.song}
-							preview={true}
-							imageSrc={i.image}
-							seller={i.seller}
-							price={i.price}
-							tokenID={i.tokenId}
-							name={i.name}
-						/>
-					))
-				)}
+				<Flex flexWrap={'wrap'} width={'100%'} justifyContent={'space-evenly'}>
+					{createdNFTs?.length === 0 ? (
+						<Text fontSize={'4xl'}>No items</Text>
+					) : (
+						createdNFTs?.map((i) => (
+							<Card
+								songSrc={i.song}
+								preview={true}
+								imageSrc={i.image}
+								seller={i.seller}
+								price={i.price}
+								tokenID={i.tokenId}
+								name={i.name}
+							/>
+						))
+					)}
+				</Flex>
 			</Box>
 		</>
 	);

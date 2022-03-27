@@ -126,19 +126,19 @@ const Form = () => {
 
 			await transaction.wait();
 
-      try{
-        const songCollectionRef = collection(db, "song");
-        await addDoc(songCollectionRef, {
-          hash:tokenID,
-          name:name,
-          views:0,
-          likes:[],
-        });
-      } catch(err){
-        console.log(err);
-      }
+			try {
+				const songCollectionRef = collection(db, 'song');
+				await addDoc(songCollectionRef, {
+					hash: tokenID,
+					name: name,
+					views: 0,
+					likes: [],
+				});
+			} catch (err) {
+				console.log(err);
+			}
 
-			navigate('/');
+			navigate('/explore');
 		} catch (error) {
 			console.log('Error uploading file: ', error);
 		}
