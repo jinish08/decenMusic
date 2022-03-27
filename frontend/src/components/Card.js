@@ -103,7 +103,7 @@ const Card = ({ imageSrc, songSrc, price, name, sellerAddr,preview }) => {
 									<FaEthereum />
 									</HStack>
 								</Text>
-								<Button>
+								<Button marginInlineEnd={'-14px'}>
 									Buy Now
 									<AiOutlineShoppingCart />
 								</Button>

@@ -80,15 +80,15 @@ const Explore = () => {
 		
       </Box>
       <Box postion="absolute" pl="16%" pt="20">
-	  <InputGroup w={48} ml="36" zIndex={1}> 
+	  <InputGroup w={80} ml="75.5px" zIndex={1} style={{Effect: 'Drop shadow', Radius: '25px',Offset: '1px, 1px rgba(0, 0, 0, 0.2)'}}> 
     <InputLeftElement
       pointerEvents='none'
       children={<FiSearch color='gray.300' />}
     />
-    <Input type='tel' placeholder='search' onChange={(event)=>{setSearchTerm(event.target.value)}} />
+    <Input type='tel' placeholder='search'  bgColor={'white'} onChange={(event)=>{setSearchTerm(event.target.value)}} />
   </InputGroup>
         <VStack>
-          <Flex flexWrap={"wrap"} justifyContent={"space-evenly"}>
+          <Flex flexWrap={"wrap"} justifyContent={"space-evenly"} w={'100%'}>
             {allNFTs.length === 0 ? (
               <Text fontSize={"4xl"}>No items</Text>
             ) : (
