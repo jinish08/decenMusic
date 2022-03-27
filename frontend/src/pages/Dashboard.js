@@ -160,6 +160,7 @@ const Dashboard = () => {
 							seller={i.seller}
 							price={i.price}
 							tokenID={i.tokenId}
+							name={i.name}
 						/>
 					))
 				)}

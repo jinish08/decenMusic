@@ -94,8 +94,12 @@ const Explore = () => {
 						}}
 					/>
 				</InputGroup>
-				<VStack w={'1300px'} justifyContent={"space-evenly"}>
-					<Flex flexWrap={'wrap'} width={"100%"} justifyContent={"space-evenly"}>
+				<VStack w={'1300px'} justifyContent={'space-evenly'}>
+					<Flex
+						flexWrap={'wrap'}
+						width={'100%'}
+						justifyContent={'space-evenly'}
+					>
 						{allNFTs.length === 0 ? (
 							<Text fontSize={'4xl'}>No items</Text>
 						) : (
@@ -117,6 +121,7 @@ const Explore = () => {
 										seller={i.seller}
 										price={i.price}
 										tokenID={i.tokenId}
+										name={i.name}
 									/>
 								))
 						)}
