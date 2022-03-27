@@ -22,7 +22,7 @@ import { FaEthereum } from 'react-icons/fa';
 const IMAGE =
 	'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
 
-const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
+const Card = ({ imageSrc, songSrc, price, name, sellerAddr,preview }) => {
 	return (
 		<>
 			<Box py={12}>
@@ -109,7 +109,7 @@ const Card = ({ imageSrc, songSrc, price, name, sellerAddr }) => {
 								</Button>
 							</HStack>
 						</Stack>
-						<Box w={10}>{songSrc && <AudioPlayer songSrc={songSrc} />}</Box>
+						<Box w={10}>{songSrc && <AudioPlayer preview={preview} songSrc={songSrc} />}</Box>
 					</Stack>
 				</Box>
 			</Box>

@@ -283,8 +283,8 @@ const Form = () => {
 						colorScheme="brand"
 						borderRadius="2xl"
 						style={{
-							boxShadow: '0px 4px 20px 8px #785fbb',
-							border: '2px solid white',
+							boxShadow: '0px 4px 20px 8px gray.800',
+							// border: '2px solid white',
 						}}
 						onClick={submitHandler}
 					>

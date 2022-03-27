@@ -3,11 +3,13 @@ import { useState } from "react";
 import { FaEthereum } from "react-icons/fa";
 import { FaWallet } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
 import classes from "./Info1.module.css";
 import { IoMdAdd } from "react-icons/io";
 import { RiSubtractLine } from "react-icons/ri";
+import {useColorModeValue} from "@chakra-ui/react";
+
 function Info1() {
   const [albumName, setAlbumName] = useState("The Purpose Light");
   const [songName, setSongName] = useState("No Going back");
@@ -18,6 +20,19 @@ function Info1() {
 
   const usdPrice = price * 3111.6;
   return (
+    <Box bgColor={'#241432'} overflowY={'hidden'}>
+    <Box role={'group'}
+    p={6}
+    maxW={'1000px'}
+    w={'full'}
+    bg={useColorModeValue('white', 'gray.800')}
+    boxShadow={'2xl'}
+    rounded={'lg'}
+    pos={'relative'}
+    mx={'auto'}
+    mt={"70"
+    }
+    zIndex={1}>
     <div className={classes.mainContainer}>
       <div className={classes.imgData}>
         
@@ -25,26 +40,26 @@ function Info1() {
       </div>
       <div className={classes.nftData}>
         <div className={classes.songHeader}>
-          <div className={classes.albumName}>
+          <div className={classes.albumName} style={{fontWeight:"700", color:"#D57FA7"}}>
             <p>{albumName}</p>
           </div>
-          <div className={classes.songName}>
+          <div className={classes.songName} style={{fontWeight:"800"}}>
             <p>{songName}</p>
           </div>
           <div className={classes.ownerDets}>
-            <p className={classes.ownedBy} style={{color: "#D57FA7"}}>
+            <p className={classes.ownedBy} style={{color: "#7863AF", fontSize:"20px", fontWeight:"600"}}>
               Owned By <span style={{ color: "#7863AF" }} className={classes.ownerAddr}>{ownerAddr} </span>{" "}
               <MdVerified
                 style={{
                   display: "inline",
-                  fontSize: "16px",
+                  fontSize: "20px",
                   color: "#7863AF",
                   marginTop: "7px",
                 }}
               />
             </p>
-            <p className={classes.likes} style={{color: "#D57FA7"}}>
-              <AiFillHeart style={{ fontSize: "15px", display: "inline", color: "#7863AF"}} />{" "}
+            <p className={classes.likes} style={{color: "#7863AF", fontSize:"20px", fontWeight:"600"}}>
+              <AiFillHeart style={{ fontSize: "15px", display: "inline", color: "#7863AF" , fontSize:"20px", fontWeight:"600"}} />{" "}
               {views} Views {/* <FavoriteIcon /> {views} Streams{" "} */}
             </p>
           </div>
@@ -70,12 +85,12 @@ function Info1() {
           </p>
           <div className={classes.priceBtns}>
           <div className={classes.imgHeader} 
-              style={{marginTop:"20px", marginBottom:"20px"}}>
-          <FaEthereum style={{ display: "inline", fontSize: "17px" }} />
+              style={{marginTop:"20px", marginBottom:"20px", padding: "10px", justifyContent: "space-evenly "}}>
+          {/* <FaEthereum style={{ display: "inline", fontSize: "17px" }} /> */}
           <IoMdAdd
             style={{
               display: "inline",
-              fontSize: "15px",
+              fontSize: "20px",
               marginRight: "5px",
               color: "green",
             }}
@@ -88,7 +103,7 @@ function Info1() {
           <RiSubtractLine
             style={{
               display: "inline",
-              fontSize: "15px",
+              fontSize: "20px",
               marginRight: "5px",
               color: "red",
             }}
@@ -100,14 +115,20 @@ function Info1() {
               }
             }}
           />
-          <p className={classes.likes}>{orderAmt}</p>
+          <p className={classes.likes}>0.{orderAmt}%</p>
         </div>
             <Button
+              className="myclass"
               leftIcon={<FaWallet />}
-              colorScheme="twitter"
+              bgColor="#D57FA7"
+              color="white"
               variant="solid"
               width="190px"
               mt="15px"
+              _hover={{
+                color:'white',
+                backgroundColor: '#7863AF'
+              }}
             >
               Buy Now
             </Button>
@@ -115,6 +136,8 @@ function Info1() {
         </div>
       </div>
     </div>
+    </Box>
+    </Box>
   );
 }
 
