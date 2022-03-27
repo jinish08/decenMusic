@@ -1,7 +1,9 @@
 import { Box, Button, Image, Text } from '@chakra-ui/react';
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../providers/userContext';
+import { db } from '../utils/firebase-config';
 // import bg from "./assets/landbg.svg"
 
 const Landing = () => {
