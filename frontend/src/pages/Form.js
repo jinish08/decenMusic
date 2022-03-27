@@ -23,6 +23,8 @@ import { ethers } from 'ethers';
 import contractAddress from '../contracts/contract-address.json';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../providers/userContext';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../utils/firebase-config';
 
 const mystyle = {
 	overflow: 'hidden',
@@ -123,6 +125,18 @@ const Form = () => {
 			);
 
 			await transaction.wait();
+
+      try{
+        const songCollectionRef = collection(db, "song");
+        await addDoc(songCollectionRef, {
+          hash:tokenID,
+          name:name,
+          views:[],
+          likes:[],
+        });
+      } catch(err){
+        console.log(err);
+      }
 
 			navigate('/');
 		} catch (error) {
