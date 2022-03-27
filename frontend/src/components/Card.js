@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import {
-	AiOutlineHeart,
-	AiFillHeart,
-	AiOutlineShoppingCart,
-} from 'react-icons/ai';
+  AiOutlineHeart,
+  AiFillHeart,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 
 import {
 	Box,
@@ -19,10 +19,14 @@ import {
 } from '@chakra-ui/react';
 import { AudioPlayer } from './AudioPlayer';
 import { FaEthereum } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 const IMAGE =
-	'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
+  "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
 
-const Card = ({ imageSrc, songSrc, price, name, sellerAddr,preview }) => {
+const Card = ({ imageSrc, songSrc, price, name, sellerAddr, preview,tokenID }) => {
+  const [isLiked, setIsLiked] = useState(false);
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<Box py={12}>
@@ -84,32 +88,46 @@ const Card = ({ imageSrc, songSrc, price, name, sellerAddr,preview }) => {
 								{name}
 							</Heading>
 
-							<AiOutlineHeart fontSize={25} />
-						</HStack>
-						<Text
-							fontSize={'sm'}
-							textTransform={'uppercase'}
-							color={'#D57FA7'}
-							fontWeight={550}
-						>
-							{sellerAddr}
-						</Text>
+              {isLiked ? (
+                <AiFillHeart
+                  onClick={() => setIsLiked(!isLiked)}
+                  fontSize={25}
+                />
+              ) : (
+                <AiOutlineHeart
+                  onClick={() => setIsLiked(!isLiked)}
+                  fontSize={25}
+                />
+              )}
+            </HStack>
+            <Text
+              fontSize={"sm"}
+              textTransform={"uppercase"}
+              color={"#D57FA7"}
+              fontWeight={550}
+            >
+              {sellerAddr}
+            </Text>
 
 						<Stack direction={'row'} align={'left'}>
 							<HStack>
 								<Text fontWeight={800} fontSize={'xl'} marginRight={120}>
 									<HStack>
 										<Text>{price}</Text>
-									<FaEthereum />
+										<FaEthereum />
 									</HStack>
 								</Text>
-								<Button>
+								<Button marginInlineEnd={'-14px'} onClick={(e) =>
+										navigate(`/buy/${tokenID}`, { state: { price: price } })
+									}>
 									Buy Now
 									<AiOutlineShoppingCart />
 								</Button>
 							</HStack>
 						</Stack>
-						<Box w={10}>{songSrc && <AudioPlayer preview={preview} songSrc={songSrc} />}</Box>
+						<Box w={10}>
+							{songSrc && <AudioPlayer preview={preview} songSrc={songSrc} />}
+						</Box>
 					</Stack>
 				</Box>
 			</Box>
