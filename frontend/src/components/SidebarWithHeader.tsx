@@ -206,13 +206,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
       <HStack spacing={{ base: "0", md: "6" }}>
         
-      <InputGroup>
-    <InputLeftElement
-      pointerEvents='none'
-      children={<FiSearch color='gray.300' />}
-    />
-    <Input type='tel' placeholder='Phone number' />
-  </InputGroup>
+
         <Flex alignItems={"center"}>
           <Menu>
             <MenuButton
