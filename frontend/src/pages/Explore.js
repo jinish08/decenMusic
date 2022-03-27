@@ -94,8 +94,8 @@ const Explore = () => {
 						}}
 					/>
 				</InputGroup>
-				<VStack>
-					<Flex flexWrap={'wrap'} justifyContent={'space-evenly'}>
+				<VStack w={'1300px'} justifyContent={"space-evenly"}>
+					<Flex flexWrap={'wrap'} width={"100%"} justifyContent={"space-evenly"}>
 						{allNFTs.length === 0 ? (
 							<Text fontSize={'4xl'}>No items</Text>
 						) : (
