@@ -16,7 +16,7 @@ const MyNft = () => {
 			<Image
 				zIndex="-1"
 				position="absolute"
-				src="/assets/explorebg.svg"
+				src="/assets/mynftbg.svg"
 				height="100vh"
 				width="100vw"
 				objectFit="cover"
