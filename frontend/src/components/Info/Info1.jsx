@@ -3,21 +3,23 @@ import { useState } from 'react';
 import { FaEthereum } from 'react-icons/fa';
 import { FaWallet } from 'react-icons/fa';
 import { MdVerified } from 'react-icons/md';
-import { Box, Button } from '@chakra-ui/react';
-import { AiFillHeart } from 'react-icons/ai';
+import { Box, Button, Image } from '@chakra-ui/react';
+import { AiFillEye } from 'react-icons/ai';
 import classes from './Info1.module.css';
-import { IoMdAdd } from 'react-icons/io';
+import { IoMdAdd, IoMdArrowBack } from 'react-icons/io';
 import { RiSubtractLine } from 'react-icons/ri';
 import { useColorModeValue } from '@chakra-ui/react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import {
 	getMarketContractWrite,
 	getNftContractRead,
 	getNftContractWrite,
+	truncateEthAddress,
 } from '../../utils';
 import { ethers } from 'ethers';
 import contractAddress from '../../contracts/contract-address.json';
+import toast from 'react-hot-toast';
 
 function Info1() {
 	const [albumName, setAlbumName] = useState('The Purpose Light');
@@ -34,7 +36,7 @@ function Info1() {
 			const nftContract = getNftContractRead();
 			const tokenURI = await nftContract.tokenURIs(id);
 			const meta = await axios.get(tokenURI);
-			console.log(meta.data);
+			console.log('Meta data', meta.data);
 			setMetaData(meta.data);
 		} catch (e) {
 			console.log(e.message);
@@ -55,14 +57,25 @@ function Info1() {
 		// 	'ether'
 		// );
 
-		const tx = await marketContract.createMarketSale(
-			contractAddress.nftAddress,
-			id,
-			orderAmt,
-			{ value: ethers.utils.parseUnits(price, 'ether') }
+		const tx = await toast.promise(
+			marketContract.createMarketSale(
+				contractAddress.nftAddress,
+				id,
+				orderAmt,
+				{ value: ethers.utils.parseUnits(price, 'ether') }
+			),
+			{
+				loading: 'Confirm transaction',
+				success: 'Transaction confirmed!',
+				error: 'Transaction cancelled',
+			}
 		);
 
-		await tx.wait();
+		await toast.promise(tx.wait(), {
+			loading: 'Minning transaction, Hold tight!',
+			success: 'Minned successfully !',
+			error: 'please wait 5 min and try again',
+		});
 
 		navigate('/explore');
 	};
@@ -102,21 +115,17 @@ function Info1() {
 										color: '#7863AF',
 										fontSize: '20px',
 										fontWeight: '600',
+										display: 'flex',
+										alignItems: 'center',
 									}}
 								>
-									Owned By{' '}
-									<span
-										style={{ color: '#7863AF' }}
-										className={classes.ownerAddr}
-									>
-										{metaData.author}{' '}
-									</span>{' '}
+									Owned By {truncateEthAddress(metaData.author)}
 									<MdVerified
 										style={{
-											display: 'inline',
+											display: 'inline-block',
 											fontSize: '20px',
 											color: '#7863AF',
-											marginTop: '7px',
+											marginLeft: '5px',
 										}}
 									/>
 								</p>
@@ -126,18 +135,21 @@ function Info1() {
 										color: '#7863AF',
 										fontSize: '20px',
 										fontWeight: '600',
+										display: 'flex',
+										alignItems: 'center',
 									}}
 								>
-									<AiFillHeart
+									<AiFillEye
 										style={{
 											fontSize: '15px',
 											display: 'inline',
 											color: '#7863AF',
 											fontSize: '20px',
 											fontWeight: '600',
+											marginRight: '2px',
 										}}
 									/>{' '}
-									{views} Views {/* <FavoriteIcon /> {views} Streams{" "} */}
+									{views} Views
 								</p>
 							</div>
 						</div>
@@ -154,8 +166,13 @@ function Info1() {
 										}}
 									>
 										{' '}
-										<FaEthereum
+										{/* <FaEthereum
 											style={{ display: 'inline', fontSize: '26px' }}
+										/> */}
+										<Image
+											src="../assets/matic-token.png"
+											style={{ display: 'inline', marginRight: '4px' }}
+											width="25px"
 										/>
 										{price}
 									</span>{' '}
@@ -163,10 +180,13 @@ function Info1() {
 								{/* <span className={classes.priceUsd}>(${usdPrice})</span> */}
 							</p>
 							<div className={classes.priceBtns}>
+								<p style={{ color: '#707a83', marginTop: '15px' }}>
+									Number of copies
+								</p>
 								<div
 									className={classes.imgHeader}
 									style={{
-										marginTop: '20px',
+										marginTop: '10px',
 										marginBottom: '20px',
 										padding: '10px',
 										justifyContent: 'space-evenly ',
@@ -201,7 +221,7 @@ function Info1() {
 											}
 										}}
 									/>
-									<p className={classes.likes}>0.{orderAmt}%</p>
+									<p className={classes.likes}>{orderAmt}</p>
 								</div>
 								<Button
 									className="myclass"
@@ -219,6 +239,23 @@ function Info1() {
 								>
 									Buy Now
 								</Button>
+								<Link to="/explore">
+									<Button
+										className="myclass"
+										leftIcon={<IoMdArrowBack />}
+										bgColor="#D57FA7"
+										color="white"
+										variant="solid"
+										ml="8px"
+										mt="15px"
+										_hover={{
+											color: 'white',
+											backgroundColor: '#7863AF',
+										}}
+									>
+										Back
+									</Button>
+								</Link>
 							</div>
 						</div>
 					</div>

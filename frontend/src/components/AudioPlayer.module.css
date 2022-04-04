@@ -41,19 +41,15 @@
 	height: 20px;
 }
 
-.currentTime{
+.currentTime {
 	font-family: monospace;
 	font-size: 16px;
-	margin-right: 9px;
+	margin: 0 7px;
 }
 .duration {
 	font-family: monospace;
 	font-size: 16px;
 	margin-left: 2px;
-}
-
-.currentTime {
-	margin-left: 25px;
 }
 
 .progressBar {

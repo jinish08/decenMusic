@@ -42,15 +42,15 @@ export const UserProvider = ({ children }) => {
 			});
 			console.log(accounts);
 			setCurrentAccount(accounts[0]);
-			try{
-				const userCollectionRef = collection(db, "user");
+			try {
+				const userCollectionRef = collection(db, 'user');
 				await addDoc(userCollectionRef, {
-				  hash:accounts[0],
-				  fav:[],
+					hash: accounts[0],
+					fav: [],
 				});
-			  } catch(err){
+			} catch (err) {
 				console.log(err);
-			  }
+			}
 		} catch (error) {
 			console.log(error);
 			throw new Error(error.message);
@@ -60,6 +60,8 @@ export const UserProvider = ({ children }) => {
 	const getAllNFTs = async () => {
 		const nftContract = getNftContractRead();
 		const marketContract = getMarketContractRead();
+
+		setLoading(true);
 
 		const data = await marketContract.fetchMarketItems();
 
@@ -81,13 +83,15 @@ export const UserProvider = ({ children }) => {
 				return item;
 			})
 		);
-		console.log(items);
 		setAllNFTs(items);
+		setLoading(false);
 	};
 
 	const getMyNFTs = async () => {
 		const marketContract = getMarketContractRead();
 		const nftMarketContract = getNftContractRead();
+
+		setLoading(true);
 
 		const data = await marketContract.fetchMyNFTs();
 
@@ -113,6 +117,7 @@ export const UserProvider = ({ children }) => {
 		console.log('f;dljfasd;fjklasf;jk', myNfts);
 
 		setMyNfts(items);
+		setLoading(false);
 	};
 
 	const getCreatedNFTs = async () => {

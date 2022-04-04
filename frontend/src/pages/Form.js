@@ -21,10 +21,11 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { getMarketContractWrite, getNftContractWrite } from '../utils';
 import { ethers } from 'ethers';
 import contractAddress from '../contracts/contract-address.json';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../providers/userContext';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../utils/firebase-config';
+import toast from 'react-hot-toast';
 
 const mystyle = {
 	overflow: 'hidden',
@@ -40,9 +41,9 @@ const Form = () => {
 	const [onFocus, setOnFocus] = useState(false);
 	const [songUrl, setSongUrl] = useState('');
 	const [imageUrl, setImageUrl] = useState('');
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState('');
 	const [price, setPrice] = useState(0);
-	const { currenAccount } = useContext(UserContext);
+	const { currentAccount } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -54,14 +55,14 @@ const Form = () => {
 		const file = e.target.files[0];
 		console.log('Song', file);
 		try {
-			setLoading(true);
+			setLoading('Uploading music');
 			const added = await client.add(file, {
 				progress: (prog) => console.log(`received: ${prog}`),
 			});
 			const url = `https://ipfs.infura.io/ipfs/${added.path}`;
 			console.log('url--', url);
 			setSongUrl(url);
-			setLoading(false);
+			setLoading('');
 		} catch (error) {
 			console.log('Error uploading file: ', error);
 		}
@@ -75,13 +76,13 @@ const Form = () => {
 		const file = e.target.files[0];
 		console.log('Image', file);
 		try {
-			setLoading(true);
+			setLoading('Uploading Image...');
 			const added = await client.add(file, {
 				progress: (prog) => console.log(`received: ${prog}`),
 			});
 			const url = `https://ipfs.infura.io/ipfs/${added.path}`;
 			console.log('url--', url);
-			setLoading(false);
+			setLoading('');
 			setImageUrl(url);
 		} catch (error) {
 			console.log('Error uploading file: ', error);
@@ -98,18 +99,44 @@ const Form = () => {
 			tags,
 			image: imageUrl,
 			song: songUrl,
-			author: currenAccount,
+			author: currentAccount,
 		});
 
 		try {
-			const added = await client.add(data);
+			setLoading('Loading...');
+
+			const added = await toast.promise(client.add(data), {
+				loading: 'Uploading to ipfs',
+				success: 'Successfully Uploaded to ipfs!',
+				error: 'Error uploading please try again in 2min',
+			});
+
 			const url = `https://ipfs.infura.io/ipfs/${added.path}`;
 
 			const nftContract = getNftContractWrite();
 			const marketContract = getMarketContractWrite();
 			console.log('fdsafdsafdsfsdfsad', url);
-			let transaction = await nftContract.createToken(copies, url);
-			let tx = await transaction.wait();
+			console.log('compies', copies);
+			let transaction = await toast.promise(
+				nftContract.createToken(copies, url),
+				{
+					loading: 'Minting NFT',
+					success: 'NFT Minted',
+					error: 'Error creating NFT',
+				},
+				{
+					success: {
+						icon: '🔥',
+					},
+				}
+			);
+			console.log('creating nft', transaction);
+			let tx = await toast.promise(transaction.wait(), {
+				loading: 'Minning transaction, Hold tight!',
+				success: 'Minned successfully !',
+				error: 'please wait 5 min and try again',
+			});
+			console.log('Transaction dfdasfdasfdsaffsaf', tx);
 			const event = tx.events[1];
 			console.log('Events', event);
 			let value = event.args[0];
@@ -117,14 +144,30 @@ const Form = () => {
 			console.log('Token ID', tokenID);
 			const acutalPrice = ethers.utils.parseUnits(price, 'ether');
 
-			transaction = await marketContract.createMarketItem(
-				contractAddress.nftAddress,
-				tokenID,
-				copies,
-				acutalPrice
+			transaction = await toast.promise(
+				marketContract.createMarketItem(
+					contractAddress.nftAddress,
+					tokenID,
+					copies,
+					acutalPrice
+				),
+				{
+					loading: 'Publishing your song',
+					success: 'Your song is published!',
+					error: 'please wait 5 min and try again',
+				},
+				{
+					success: {
+						icon: '🔥',
+					},
+				}
 			);
 
-			await transaction.wait();
+			await toast.promise(transaction.wait(), {
+				loading: 'Minning transaction, Hold tight!',
+				success: 'Minned successfully !',
+				error: 'please wait 5 min and try again',
+			});
 
 			try {
 				const songCollectionRef = collection(db, 'song');
@@ -137,6 +180,8 @@ const Form = () => {
 			} catch (err) {
 				console.log(err);
 			}
+
+			setLoading('');
 
 			navigate('/explore');
 		} catch (error) {
@@ -190,6 +235,7 @@ const Form = () => {
 							type="file"
 							accept="audio/mpeg3"
 							onChange={handleMusic}
+							disabled={loading}
 						/>
 					</FormControl>
 					<FormControl mb={'7'}>
@@ -200,6 +246,7 @@ const Form = () => {
 							type="file"
 							accept="image/*"
 							onChange={handleImage}
+							disabled={loading}
 						/>
 					</FormControl>
 					<FormControl mb={'7'}>
@@ -232,7 +279,7 @@ const Form = () => {
             </FormHelperText> */}
 					</FormControl>
 					<FormControl mb={'7'}>
-						<FormLabel htmlFor="price">Prices(in ETH)</FormLabel>
+						<FormLabel htmlFor="price">Price (in MATIC) for 1 copy</FormLabel>
 						<input
 							type="number"
 							name="prices"
@@ -299,6 +346,8 @@ const Form = () => {
 						fontSize="2xl"
 						colorScheme="brand"
 						borderRadius="2xl"
+						isLoading={loading}
+						loadingText={loading}
 						style={{
 							boxShadow: '0px 4px 20px 8px gray.800',
 							// border: '2px solid white',
@@ -307,6 +356,22 @@ const Form = () => {
 					>
 						Submit
 					</Button>
+					<Link to="/explore">
+						<Button
+							mt="2"
+							ml="2"
+							size="lg"
+							px="8"
+							fontSize="2xl"
+							colorScheme="brand"
+							borderRadius="2xl"
+							style={{
+								boxShadow: '0px 4px 20px 8px gray.800',
+							}}
+						>
+							Back
+						</Button>
+					</Link>
 				</Box>
 			</Box>
 		</Box>

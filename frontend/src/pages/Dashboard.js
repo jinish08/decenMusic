@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Box, Flex, HStack, Text } from '@chakra-ui/react';
+import { Box, Circle, Flex, HStack, Image, Text } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/SidebarWithHeader.tsx';
 import {
 	PieChart,
@@ -16,52 +16,38 @@ import {
 import { UserContext, UserProvider } from '../providers/userContext';
 import Card from '../components/Card';
 
-const barColors = ['#92A3FD', '#C58BF2'];
+const barColors = ['#6d85f9', '#993fe1'];
 let renderLabel = function (entry) {
 	return entry.name;
 };
 
-const color1 = ['#92A3FD', '#9DCEFF'];
+const color1 = ['#6d85f9', '#993fe1', '#d22cf7'];
 const color2 = ['#C58BF2', '#EEA4CE'];
 
 const Dashboard = () => {
 	const { getCreatedNFTs, createdNFTs } = useContext(UserContext);
 
 	let data1 = [
-		{ name: 'Exercise 1', value: 97 },
-		{ name: 'Exercise 2', value: 1 },
-		{ name: 'Exercise 3', value: 12 },
-		{ name: 'Exercise 4', value: 4 },
+		{ name: 'Lean On', value: 6 },
+		{ name: 'Never Give Up', value: 5 },
+		{ name: 'Udd Gaye', value: 2 },
 	];
 
 	const data2 = [
 		{
-			name: 'Day 1',
-			Time: 23,
+			name: 'Lean On',
+			View: 6,
+			Like: 4,
 		},
 		{
-			name: 'Day 2',
-			Time: 22,
+			name: 'Never Give Up',
+			View: 5,
+			Like: 4,
 		},
 		{
-			name: 'Day 3',
-			Time: 11,
-		},
-		{
-			name: 'Day 4',
-			Time: 14,
-		},
-		{
-			name: 'Day 5',
-			Time: 18,
-		},
-		{
-			name: 'Day 6',
-			Time: 19,
-		},
-		{
-			name: 'Day 7',
-			Time: 10,
+			name: 'Udd Gaye',
+			View: 2,
+			Like: 1,
 		},
 	];
 
@@ -71,10 +57,21 @@ const Dashboard = () => {
 
 	return (
 		<>
+			<Image
+				zIndex="-1"
+				position="absolute"
+				src="/assets/explorebg.svg"
+				height="100vh"
+				width="100vw"
+				objectFit="cover"
+				alt="Dan Abramov"
+				left="0"
+				top="0"
+			/>
 			<Box position="absolute" width="full" zIndex="0">
 				<SidebarWithHeader />
 			</Box>
-			<Box postion="absolute" ml="16%" pt="20" zIndex="0">
+			<Box postion="absolute" ml="18%" pt="20" zIndex="0">
 				<HStack>
 					<Box zIndex="10">
 						<PieChart width={400} height={400} zIndex="0">
@@ -89,7 +86,11 @@ const Dashboard = () => {
 								zIndex="0"
 							>
 								{data1.map((entry, index) => (
-									<Cell key={`cell-${index}`} fill={barColors[index % 2]} />
+									<Cell
+										key={`cell-${index}`}
+										fill={color1[index % 3]}
+										color="white"
+									/>
 								))}
 							</Pie>
 							<Tooltip />
@@ -127,11 +128,11 @@ const Dashboard = () => {
 							</defs>
 							<CartesianGrid strokeDasharray="2 2" />
 							<XAxis dataKey="name" />
-							<YAxis dataKey="Time" />
+							<YAxis dataKey="View" />
 							<Tooltip />
 							<Legend />
 							<Bar
-								dataKey="Time"
+								dataKey="View"
 								/*fill="url(#colorUv)"*/ radius={[20, 20, 20, 20]}
 							>
 								{data2.map((entry, index) => (
@@ -139,7 +140,7 @@ const Dashboard = () => {
 								))}
 							</Bar>
 							<Bar
-								dataKey="Time"
+								dataKey="Like"
 								/*fill="url(#colorUv)"*/ radius={[20, 20, 20, 20]}
 							>
 								{data2.map((entry, index) => (
@@ -162,6 +163,7 @@ const Dashboard = () => {
 								price={i.price}
 								tokenID={i.tokenId}
 								name={i.name}
+								dashboard={true}
 							/>
 						))
 					)}

@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 import { extendTheme } from '@chakra-ui/react';
 import { UserProvider } from './providers/userContext';
+import { Toaster } from 'react-hot-toast';
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
@@ -28,6 +29,7 @@ ReactDOM.render(
 	<ChakraProvider theme={theme}>
 		<BrowserRouter>
 			<UserProvider>
+				<Toaster />
 				<App />
 			</UserProvider>
 		</BrowserRouter>

@@ -32,6 +32,7 @@ const Card = ({
 	preview,
 	tokenID,
 	sellingState,
+	dashboard,
 }) => {
 	const [isLiked, setIsLiked] = useState(false);
 	const navigate = useNavigate();
@@ -123,18 +124,21 @@ const Card = ({
 								<Text fontWeight={800} fontSize={'xl'} marginRight={20}>
 									<HStack>
 										<Text>{price}</Text>
-										<FaEthereum />
+										{/* <FaEthereum /> */}
+										<Image src="assets/matic-token.png" width={'24px'} />
 									</HStack>
 								</Text>
-								<Button
-									marginInlineEnd={'-14px'}
-									onClick={(e) =>
-										navigate(`/buy/${tokenID}`, { state: { price: price } })
-									}
-								>
-									{sellingState ? 'Sell Now' : 'Buy Now'}
-									<AiOutlineShoppingCart />
-								</Button>
+								{!dashboard && (
+									<Button
+										marginInlineEnd={'-14px'}
+										onClick={(e) =>
+											navigate(`/buy/${tokenID}`, { state: { price: price } })
+										}
+									>
+										{sellingState ? 'Sell Now' : 'Buy Now'}
+										<AiOutlineShoppingCart />
+									</Button>
+								)}
 							</HStack>
 						</Stack>
 						<Box w={10}>
